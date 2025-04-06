@@ -24,10 +24,15 @@ public class MovieController {
         return movieRepository.findAll();
     }
 
+    @PostMapping
+    public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
+        Movie savedMovie = movieRepository.save(movie);
+        return ResponseEntity.ok(savedMovie);
+    }
+
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
-        // Ensure posterPath is included in the request body; no manual override here
+    public ResponseEntity<Movie> addMovieAdmin(@RequestBody Movie movie) {
         Movie savedMovie = movieRepository.save(movie);
         return ResponseEntity.ok(savedMovie);
     }
